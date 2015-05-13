@@ -1,0 +1,122 @@
+<html>
+<meta charset="UTF-8">
+
+<head>
+
+<title>TODO</title>
+<link href="/atlas/css/defaults.css" rel="stylesheet" type="text/css" media="all"></link>
+<link href="/atlas/css/form.css" rel="stylesheet" type="text/css" media="all"></link>
+<link href="/atlas/css/grid.css" rel="stylesheet" type="text/css" media="all"></link>
+<link href="/atlas/css/list.css" rel="stylesheet" type="text/css" media="all"></link>
+<link href="/atlas/css/modal.css" rel="stylesheet" type="text/css" media="all"></link>
+<link href="/atlas/css/navigation.css" rel="stylesheet" type="text/css" media="all"></link>
+<link href="/atlas/css/teletype-theme.css" rel="stylesheet" type="text/css" media="all"></link>
+<link
+    href="/atlas/open-iconic/font/css/open-iconic.css"
+    rel="stylesheet"
+    type="text/css"
+    media="all">
+</link>
+
+</head>
+
+<body>
+
+<div id="modal-container" class="modal-container"></div>
+<ul class="navigation">
+    <li>
+        <span class="oi" data-glyph="home" aria-hidden="true"> </span>
+        <a href="/">Home</a>
+    </li>
+</ul>
+<ul id="navigation" class="navigation"></ul>
+<div id="template-content" class="content"></div>
+
+<script type="text/template" id="modal-template">
+<div class="modal">
+    <div class="modal-dialog">
+        <form class="modal-content" name="modal-content">
+        </form>
+    </div>
+    <div class="modal-button-box">
+        <% if(_(buttons).has(['close'])) { %>
+        <button type="button" name="close">
+            <span class="oi" data-glyph="x" aria-hidden="true"> </span>
+            Close
+        </button>
+        <% } %>
+        <% if(_(buttons).has(['cancel'])) print('<button type="button" name="cancel">Cancel</button>'); %>
+        <% if(_(buttons).has(['no'])) { %>
+        <button type="button" name="no">
+            <span class="oi" data-glyph="x" aria-hidden="true"> </span>
+            No
+        </button>
+        <% } %>
+
+
+        <% if(_(buttons).has(['destroy'])) { %>
+        <button type="button" name="destroy">
+            <span class="oi" data-glyph="trash" aria-hidden="true"> </span>
+            Delete
+        </button>
+        <% } %>
+        <% if(_(buttons).has(['save'])) { %>
+        <button type="button" name="save">
+            <span class="oi" data-glyph="check" aria-hidden="true"> </span>
+            Save
+        </button>
+        <% } %>
+        <% if(_(buttons).has(['create'])) { %>
+        <button type="button" name="create">
+            <span class="oi" data-glyph="check" aria-hidden="true"> </span>
+            Create
+        </button>
+        <% } %>
+        <% if(_(buttons).has(['yes'])) { %>
+        <button type="button" name="yes">
+            <span class="oi" data-glyph="check" aria-hidden="true"> </span>
+            Yes
+        </button>
+        <% } %>
+    </div>
+</div>
+</script>
+
+<script type="text/template" id="homepage-template">
+<h1 name="application_title"></h1>
+<div class="grid">
+    <div class="col-1-2">
+        <ul name="todos" class="action-list"></ul>
+    </div>
+    <div class="col-1-2">
+        <button name="new-item">New Item</button>
+    </div>
+</div>
+</script>
+
+<script type="text/template" id="todoform-template">
+<h2><% if(isNew) { print('New Todo'); } else { print('Edit Todo'); } %></h2>
+<div class="aligned">
+    <div class="group">
+        <label for="todo_text">Text</label>
+        <input type="text" name="todo_text"></input>
+    </div>
+</div>
+</script>
+
+<script type="text/javascript" src="/atlas/underscore.js"></script>
+<script type="text/javascript" src="/atlas/backbone.js"></script>
+<script type="text/javascript" src="/atlas/jquery.js"></script>
+<script type="text/javascript" src="/atlas/stacked_application.js"></script>
+<script type="text/javascript" src="models.js"></script>
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript">
+Backbone.$ = $;
+var gApplication = new StackedApplication(HomePage);
+gApplication.goHome();
+</script>
+
+</body>
+
+</html>
+
