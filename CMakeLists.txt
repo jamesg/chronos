@@ -24,3 +24,11 @@ add_subdirectory(web)
 
 add_dependencies(chronos-server-lib chronos-web)
 
+add_executable(chronos src/main/chronos.cpp)
+add_dependencies(chronos-server-lib chronos-web)
+target_link_libraries(
+    chronos
+    chronos-server-lib
+    atlas-web
+    )
+
