@@ -95,11 +95,12 @@
 </script>
 
 <script type="text/template" id="todoform-template">
+<div class="messagebox" id="messagebox"></div>
 <h2><% if(isNew) { print('New Todo'); } else { print('Edit Todo'); } %></h2>
 <div class="aligned">
     <div class="group">
         <label for="todo_text">Text</label>
-        <input type="text" name="todo_text"></input>
+        <input type="text" name="todo_text" value="<%-todo_text%>"></input>
     </div>
 </div>
 </script>

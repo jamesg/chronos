@@ -21,14 +21,6 @@ chronos::router::router(hades::connection& conn)
     install_static_text("/index.js", CHRONOS_STATIC_STD_STRING(index_js));
     install_static_text("/models.js", CHRONOS_STATIC_STD_STRING(models_js));
 
-    install<int>(
-            atlas::http::matcher("/todo/([0-9]+)"),
-            [&conn](const int todo_id) {
-                return atlas::http::json_response(
-                    hades::get_by_id<todo>(conn, todo::id_type{todo_id})
-                    );
-            }
-            );
     install<>(
             atlas::http::matcher("/todo", "GET"),
             [&conn]() {
@@ -41,6 +33,22 @@ chronos::router::router(hades::connection& conn)
                 todo t(e);
                 t.insert(conn);
                 return atlas::http::json_response(t);
+            }
+            );
+    install<int>(
+            atlas::http::matcher("/todo/([0-9]+)", "DELETE"),
+            [&conn](const int todo_id) {
+                return atlas::http::json_response(
+                    todo(todo::id_type{todo_id}).destroy(conn)
+                    );
+            }
+            );
+    install<int>(
+            atlas::http::matcher("/todo/([0-9]+)", "GET"),
+            [&conn](const int todo_id) {
+                return atlas::http::json_response(
+                    hades::get_by_id<todo>(conn, todo::id_type{todo_id})
+                    );
             }
             );
     install_json<styx::element, int>(
