@@ -35,17 +35,17 @@ chronos::router::router(hades::connection& conn)
                 return atlas::http::json_response(todo::get_collection(conn));
             }
             );
-    install_json<>(
+    install_json<styx::element>(
             atlas::http::matcher("/todo", "POST"),
-            [&conn](const styx::element e) {
+            [&conn](const styx::element& e) {
                 todo t(e);
                 t.insert(conn);
                 return atlas::http::json_response(t);
             }
             );
-    install_json<int>(
+    install_json<styx::element, int>(
             atlas::http::matcher("/todo/([0-9]+)", "PUT"),
-            [&conn](const styx::element e, const int) {
+            [&conn](const styx::element& e, const int) {
                 todo t(e);
                 t.update(conn);
                 return atlas::http::json_response(t);

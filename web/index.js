@@ -62,7 +62,7 @@ var HomePage = PageView.extend(
         },
         showNewDialog: function() {
             var m = new Modal({
-                buttons: { cancel: true, create: true },
+                buttons: [ StandardButton.cancel(), StandardButton.create() ],
                 model: new Todo,
                 view: TodoForm
             });
