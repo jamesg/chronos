@@ -21,11 +21,11 @@ var TodoForm = StaticView.extend(
             var model = this.model;
             var m = new ConfirmModal({
                 message: 'Delete "' + this.model.get('todo_text') + '"?',
-                callback: function() {
+                callback: (function() {
                     model.destroy({
                         success: this.trigger.bind(this, 'finished')
                     });
-                }
+                }).bind(this)
             });
             this.listenTo(m, 'finished', this.trigger.bind(this, 'finished'));
             gApplication.modal(m);
