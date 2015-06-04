@@ -99,8 +99,10 @@
 <h2><% if(isNew) { print('New Todo'); } else { print('Edit Todo'); } %></h2>
 <div class="aligned">
     <div class="group">
-        <label for="todo_text">Text</label>
-        <input type="text" name="todo_text" value="<%-todo_text%>"></input>
+        <label>
+            Text
+            <input type="text" name="todo_text" value="<%-todo_text%>"></input>
+        </label>
     </div>
 </div>
 </script>
