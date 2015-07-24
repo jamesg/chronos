@@ -20,11 +20,12 @@ chronos::server::server(
 
     m_connection.reset(new hades::connection(opts.db));
     db::create(*m_connection);
-    m_router.reset(new chronos::router(*m_connection));
+    m_router.reset(new chronos::router(m_io, *m_connection));
     m_http_server.reset(
         new atlas::http::server(m_io, opts.address.c_str(), opts.port.c_str())
         );
-    boost::shared_ptr<atlas::http::router> atlas_router(atlas::http::static_files());
+    boost::shared_ptr<atlas::http::router>
+        atlas_router(atlas::http::static_files(m_io));
     // Forward requests starting with '/atlas' to the Atlas static file router.
     m_http_server->router().install(
         atlas::http::matcher("/atlas(.*)"),
@@ -83,4 +84,3 @@ int main(const int argc, const char* argv[])
         return 1;
     }
 }
-

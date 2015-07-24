@@ -12,9 +12,8 @@ namespace chronos
     class router : public atlas::http::application_router
     {
     public:
-        router(hades::connection&);
+        router(boost::shared_ptr<boost::asio::io_service>, hades::connection&);
     };
 }
 
 #endif
-
